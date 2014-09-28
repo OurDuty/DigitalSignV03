@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent">
+<PreferenceCategory
+    android:title="@string/prefs_commonSettings">
+    <Preference
+        android:title="@string/prefs_sendStatsPref_t"
+        android:summary="@string/prefs_sendStatsPref_s"
+        android:key="sendStatsPref" />
+
+    <Preference
+        android:title="@string/prefs_checkTasksPref_t"
+        android:summary="@string/prefs_checkTasksPref_s"
+        android:key="checkTasksPref" />
+
+    <CheckBoxPreference
+        android:title="@string/pref_animationPref_t"
+        android:defaultValue="true"
+        android:summary="@string/pref_animationPref_s"
+        android:key="animationPref" />
+
+    <ListPreference
+        android:name="touchesEnded timer"
+        android:title="@string/pref_touchesEndedPref_t"
+        android:summary="@string/pref_touchesEndedPref_s"
+        android:entries="@array/timerListArray"
+        android:defaultValue="0.7"
+        android:entryValues="@array/timerListValues"
+        android:key="touchesEndedPref" />
+</PreferenceCategory>
+
+<PreferenceCategory
+    android:title="@string/prefs_serverSettings">
+    <EditTextPreference
+        android:name="Task server link"
+        android:title="@string/pref_editDownloadLink_t"
+        android:summary="@string/pref_editDownloadLink_s"
+        android:defaultValue="http://oapi.ourduty.zz.mu/checkNewTasks.php"
+        android:key="editDownloadLink" />
+    <EditTextPreference
+        android:name="Upload server link"
+        android:title="@string/pref_editUploadLink_t"
+        android:summary="@string/pref_editUploadLink_s"
+        android:defaultValue="http://oapi.ourduty.zz.mu/updateBD.php"
+        android:key="editUploadLink" />
+    <EditTextPreference
+        android:name="Edit target mail"
+        android:title="@string/pref_editTargetMail_t"
+        android:summary="@string/pref_editTargetMail_s"
+        android:defaultValue="3k.kk@mail.ru"
+        android:key="editTargetMail" />
+    <CheckBoxPreference
+        android:name="Sending on e-mail"
+        android:title="@string/pref_enableMailPref_t"
+        android:defaultValue="false"
+        android:summary="@string/pref_enableMailPref_s"
+        android:key="enableMailPref" />
+</PreferenceCategory>
+
+</PreferenceScreen>
