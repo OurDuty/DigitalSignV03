@@ -9,13 +9,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 
-public class TwoActivity extends Activity {
-
+public class TaskScreenActivity extends Activity {
     ListView lvMain;
     protected void onCreate(Bundle savedInstanceState) {
         String[] tasks = getResources().getStringArray(R.array.tasks);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.two);
+        setContentView(R.layout.activity_task_screen);
 
         lvMain = (ListView) findViewById(R.id.lvMain);
 
@@ -31,11 +30,10 @@ public class TwoActivity extends Activity {
                                     int position, long id) {
                 Log.d("myLog", "itemClick: position = " + position + ", id = "
                         + id);
-                Intent intent = new Intent(TwoActivity.this, TaskModeInput.class);
+                Intent intent = new Intent(TaskScreenActivity.this, InputActivity.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
-
     }
 }

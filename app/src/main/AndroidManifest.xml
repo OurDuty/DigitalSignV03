@@ -17,9 +17,9 @@
             </intent-filter>
         </activity>
         <action android:name="android.intent.action.MAIN" />
-        <activity android:name=".OneActivity">android:label="OneActivity"</activity>
-        <activity android:name=".TwoActivity">android:label="TwoActivity"</activity>
-        <activity android:name=".TaskModeInput">android:label="TaskMode"</activity>
+        <activity android:name=".SupportFiles">android:label="Support"</activity>
+        <activity android:name=".TaskScreenActivity">android:label="Task screen"</activity>
+        <activity android:name=".InputActivity">android:label="Input"</activity>
         <activity android:name=".SettingsActivity">android:label="Settings"</activity>
     </application>
 
