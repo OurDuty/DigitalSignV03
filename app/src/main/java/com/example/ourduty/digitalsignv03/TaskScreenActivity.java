@@ -31,7 +31,7 @@ public class TaskScreenActivity extends Activity {
                 Log.d("myLog", "itemClick: position = " + position + ", id = "
                         + id);
                 Intent intent = new Intent(TaskScreenActivity.this, InputActivity.class);
-                intent.putExtra("id", id);
+                intent.putExtra("id", String.valueOf(id));
                 startActivity(intent);
             }
         });
