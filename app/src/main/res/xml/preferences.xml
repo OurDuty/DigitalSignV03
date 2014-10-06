@@ -19,6 +19,11 @@
             android:summary="@string/prefs_checkTasksPref_s"
             android:key="checkTasksPref" />
 
+        <Preference
+            android:title="@string/pref_clearSamplesPref_t"
+            android:summary="@string/pref_clearSamplesPref_s"
+            android:key="clearSamplesPref" />
+
         <CheckBoxPreference
             android:title="@string/pref_animationPref_t"
             android:defaultValue="true"

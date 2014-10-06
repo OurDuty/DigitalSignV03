@@ -54,4 +54,7 @@
     <string name="pref_enableMailPref_t">Sending on e-mail</string>
     <string name="pref_enableMailPref_s">Enable/disable sending the copy of data on e-mail</string>
 
+    <string name="pref_clearSamplesPref_t">Clear database with samples</string>
+    <string name="pref_clearSamplesPref_s">DANGER!!!</string>
+
 </resources>

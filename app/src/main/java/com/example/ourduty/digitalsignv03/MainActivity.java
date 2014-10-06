@@ -3,6 +3,7 @@ package com.example.ourduty.digitalsignv03;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +28,8 @@ public class MainActivity extends TabActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        PreferenceManager.setDefaultValues(MainActivity.this, R.xml.preferences,
+                false);
 
         tabHost = getTabHost();
         TabHost.TabSpec tabSpec;

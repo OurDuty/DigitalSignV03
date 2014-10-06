@@ -2,8 +2,12 @@ package com.example.ourduty.digitalsignv03;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +27,10 @@ import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.widget.VideoView;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class InputActivity extends Activity implements OnTouchListener {
     TextView tv;                //TextView, which will have a TouchListener
     InputActivity t;            //this
@@ -38,7 +46,8 @@ public class InputActivity extends Activity implements OnTouchListener {
     String outstring = "";      //Our data string
     RelativeLayout relative;      //Supporting layout
     SharedPreferences prefs;    //Object which will help us to get options
-
+    SQLiteDatabase db;
+    ContentValues cv;
     /**
      * Called when the activity is first created.
      */
@@ -47,6 +56,9 @@ public class InputActivity extends Activity implements OnTouchListener {
         super.onCreate(savedInstanceState);
 
         //Values init
+        cv = new ContentValues();
+        DBHelper dbHelper = new DBHelper(this);
+        db = dbHelper.getWritableDatabase();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         tv = new TextView(this);
         relative = new RelativeLayout(this);
@@ -67,6 +79,9 @@ public class InputActivity extends Activity implements OnTouchListener {
 
         //if it is the task mode
         if (id != "-1") {
+
+
+
             final Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.popup);
             dialog.setTitle("Task id=" + id);
@@ -121,6 +136,14 @@ public class InputActivity extends Activity implements OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        Cursor c = db.query("statistics", null, null, null, null, null, null);
+        int numOfSavedSamplesTmp = 0;
+        do {
+            numOfSavedSamplesTmp++;
+            // переход на следующую строку
+            // а если следующей нет (текущая - последняя), то false - выходим из цикла
+        } while (c.moveToNext());
+        final int numOfSavedSamples = numOfSavedSamplesTmp;
         //Getting x&y coordinates
         x = event.getX();
         y = event.getY();
@@ -151,12 +174,10 @@ public class InputActivity extends Activity implements OnTouchListener {
                 counter++;
                 sDown = "Down: " + x + ", " + y;
                 sMove = ""; sUp = "";
-                tv.setText(sDown + "\n" + sMove + "\n" + sUp);
-                break;
             case MotionEvent.ACTION_MOVE: //Touch moves
                 sMove = "Move: " + x + ", " + y;
                 if(mark){
-                    outstring += (int)x + " " + (int)y + "\n";
+                    outstring += (int)x + ", " + (int)y + ";\n";
 
                     //Disable saving coordinates for next 1 ms
                     mark = false;
@@ -172,9 +193,9 @@ public class InputActivity extends Activity implements OnTouchListener {
                 break;
             case MotionEvent.ACTION_UP: //Touch ended
                 //Getting touchesEndedPref
+                outstring += "-1, -1;\n";
                 String touchesEndedTimer = prefs.getString("touchesEndedPref", "0.7");
                 int timer = Integer.valueOf(touchesEndedTimer);
-                Log.d("myLog",  "timer:" + timer);
                 new CountDownTimer(timer, timer) {
                     public void onTick(long millisUntilFinished) {
                     }
@@ -182,8 +203,14 @@ public class InputActivity extends Activity implements OnTouchListener {
                         counter--;
                         if(counter <= 0){
                             counter = 0;
-                            Log.d("myLog", outstring + "-1 -1");
-                            tv.setText("Saved!");
+                            Log.d("myLog", outstring);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Date date = new Date();
+                            cv.put("date", dateFormat.format(date));
+                            cv.put("type", Integer.valueOf(id));
+                            cv.put("stats", outstring);
+                            db.insert("statistics", null, cv);
+                            tv.setText("Saved!\nNum of saved samples:" + numOfSavedSamples);
                             outstring = "";
                         }
                     }
