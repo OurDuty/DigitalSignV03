@@ -30,7 +30,7 @@
             android:title="@string/pref_touchesEndedPref_t"
             android:summary="@string/pref_touchesEndedPref_s"
             android:entries="@array/timerListArray"
-            android:defaultValue="0.7"
+            android:defaultValue="700"
             android:entryValues="@array/timerListValues"
             android:key="touchesEndedPref" />
     </PreferenceCategory>
