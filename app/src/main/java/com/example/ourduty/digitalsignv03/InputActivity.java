@@ -1,7 +1,9 @@
 package com.example.ourduty.digitalsignv03;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.TabActivity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,7 +41,8 @@ public class InputActivity extends Activity implements OnTouchListener {
     String sDown;               //String, which will be shown on the event "Touch down"
     String sMove;               //String, which will be shown on the event "Touch move"
     String sUp;                 //String, which will be shown on the event "Touch up"
-    String id = "-1";           //id of the current task (-1 means free mode)
+    String id = "0";           //id of the current task ('0' means free mode)
+    String videoPath = "";
     int counter = 0;            //Counter to understand when we should save our data
     boolean mark = true;        //Mark which helps us to save coordinates every 1 ms
     VideoView video;            //This video will be shown in the message box
@@ -73,15 +76,14 @@ public class InputActivity extends Activity implements OnTouchListener {
         if (extras != null) {
             if (extras.containsKey("id")) {
                 id = extras.getString("id");
-                // TODO: Do something with the value of isNew.
+            }
+            if (extras.containsKey("path")) {
+                videoPath = extras.getString("path");
             }
         }
 
         //if it is the task mode
-        if (id != "-1") {
-
-
-
+        if (id != "0") {
             final Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.popup);
             dialog.setTitle("Task id=" + id);
@@ -92,7 +94,7 @@ public class InputActivity extends Activity implements OnTouchListener {
 
             //creating video object
             video = (VideoView) dialog.findViewById(R.id.video);
-            String viewSource = "android.resource://com.example.ourduty.digitalsignv03/" + R.raw.small;
+            String viewSource = videoPath;
             Log.d("myLog", viewSource);
             video.setVideoURI(Uri.parse(viewSource));
             video.setMediaController(new MediaController(this));
@@ -115,6 +117,7 @@ public class InputActivity extends Activity implements OnTouchListener {
             //starting message box
             dialog.show();
             video.start();
+            tv.setText(videoPath);
 
             //time before the message box will close
             new CountDownTimer(25000, 1000) {
@@ -212,6 +215,18 @@ public class InputActivity extends Activity implements OnTouchListener {
                             db.insert("statistics", null, cv);
                             tv.setText("Saved!\nNum of saved samples:" + numOfSavedSamples);
                             outstring = "";
+
+                            if(id != "0") {
+                                ContentValues args = new ContentValues();
+                                args.put("id", id);
+                                args.put("name", id + ". COMPLETED on " + date);
+                                args.put("videoPath", videoPath);
+
+                                db.update("tasks", args, "id=" + id, null);
+                                Intent intent = new Intent();
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            }
                         }
                     }
                 }.start();

@@ -23,10 +23,18 @@ class DBHelper extends SQLiteOpenHelper {
                 + "type integer,"
                 + "stats text,"
                 + "date date" + ");");
+        db.execSQL("create table tasks ("
+                + "id integer primary key autoincrement,"
+                + "name text,"
+                + "videoPath text" + ");");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 }
