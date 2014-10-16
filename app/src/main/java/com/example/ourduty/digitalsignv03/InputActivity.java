@@ -160,15 +160,19 @@ public class InputActivity extends Activity implements OnTouchListener {
 
         //Getting animationPref state
         boolean animation = prefs.getBoolean("animationPref", true);
-
+        boolean task_animation = prefs.getBoolean("disappPref", true);
         //If(animationPref) then enable animation
-        if(animation) {
+        if(animation && (id == "0" || task_animation)) {
             AlphaAnimation alpha = new AlphaAnimation(1.0F, 0.0F);
             alpha.setDuration(2000); // Make animation instant
             alpha.setFillAfter(true); // Tell it to persist after the animation ends
             circle.startAnimation(alpha);
             relative.addView(circle);
+        } else if(animation && id != "0"){
+            relative.addView(circle);
         }
+
+
 
         //Process touches
         switch (event.getAction()) {
@@ -183,7 +187,7 @@ public class InputActivity extends Activity implements OnTouchListener {
 
                     //Disable saving coordinates for next 1 ms
                     mark = false;
-                    new CountDownTimer(1, 1) {
+                    new CountDownTimer(20, 20) {
                         public void onTick(long millisUntilFinished) {
                         }
                         public void onFinish() {
@@ -205,6 +209,7 @@ public class InputActivity extends Activity implements OnTouchListener {
                         counter--;
                         if(counter <= 0){
                             counter = 0;
+                            outstring += "-2, -2;\n";
                             Log.d("myLog", outstring);
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Date date = new Date();

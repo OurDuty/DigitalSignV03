@@ -30,6 +30,12 @@
             android:summary="@string/pref_animationPref_s"
             android:key="animationPref" />
 
+        <CheckBoxPreference
+            android:title="@string/pref_disappPref_t"
+            android:defaultValue="false"
+            android:summary="@string/pref_disappPref_s"
+            android:key="disappPref" />
+
         <ListPreference
             android:name="touchesEnded timer"
             android:title="@string/pref_touchesEndedPref_t"
@@ -57,19 +63,6 @@
             android:defaultValue="http://oapi.ourduty.zz.mu/updateBD.php"
             android:key="editUploadLink" />
 
-        <EditTextPreference
-            android:name="Edit target mail"
-            android:title="@string/pref_editTargetMail_t"
-            android:summary="@string/pref_editTargetMail_s"
-            android:defaultValue="3k.kk@mail.ru"
-            android:key="editTargetMail" />
-
-        <CheckBoxPreference
-            android:name="Sending on e-mail"
-            android:title="@string/pref_enableMailPref_t"
-            android:defaultValue="false"
-            android:summary="@string/pref_enableMailPref_s"
-            android:key="enableMailPref" />
 
     </PreferenceCategory>
 

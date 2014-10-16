@@ -39,6 +39,9 @@
     <string name="pref_animationPref_t">Animation</string>
     <string name="pref_animationPref_s">Enable/disable animation</string>
 
+    <string name="pref_disappPref_t">Path disappear in task mode</string>
+    <string name="pref_disappPref_s">Enable/disable disappear</string>
+
     <string name="pref_touchesEndedPref_t">touchesEnded timer</string>
     <string name="pref_touchesEndedPref_s">Time between the end of your input and saving the stats</string>
 
