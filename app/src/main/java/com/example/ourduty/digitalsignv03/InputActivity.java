@@ -89,8 +89,7 @@ public class InputActivity extends Activity implements OnTouchListener {
             dialog.setTitle("Task id=" + id);
 
             //set the custom dialog components
-            final TextView text = (TextView) dialog.findViewById(R.id.text);
-            text.setText("Time left: 25");
+
 
             //creating video object
             video = (VideoView) dialog.findViewById(R.id.video);
@@ -117,12 +116,12 @@ public class InputActivity extends Activity implements OnTouchListener {
             //starting message box
             dialog.show();
             video.start();
-            tv.setText(videoPath);
+            //tv.setText(videoPath);
 
             //time before the message box will close
             new CountDownTimer(25000, 1000) {
                 public void onTick(long millisUntilFinished) {
-                    text.setText("Time left: " + millisUntilFinished / 1000);
+                    dialog.setTitle("Time left: " + millisUntilFinished / 1000);
                 }
                 public void onFinish() {
                     tv.setText("Ready!");

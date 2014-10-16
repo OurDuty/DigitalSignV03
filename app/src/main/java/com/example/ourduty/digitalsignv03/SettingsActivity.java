@@ -18,6 +18,9 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuInflater;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import java.io.BufferedWriter;

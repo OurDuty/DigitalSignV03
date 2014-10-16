@@ -8,6 +8,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,8 +24,11 @@ public class TaskScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_screen);
+
         updateList();
     }
+
+
     public void updateList(){
         lvMain = (ListView) findViewById(R.id.lvMain);
         DBHelper dbHelper = new DBHelper(this);
