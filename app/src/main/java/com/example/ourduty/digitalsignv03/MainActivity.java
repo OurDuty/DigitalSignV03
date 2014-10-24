@@ -50,6 +50,9 @@ public class MainActivity extends TabActivity{
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        //addPreferencesFromResource(R.xml.preferences);
+        PreferenceManager.setDefaultValues(MainActivity.this, R.xml.preferences,
+                false);
         setContentView(R.layout.activity_main);
 
         tabHost = getTabHost();
