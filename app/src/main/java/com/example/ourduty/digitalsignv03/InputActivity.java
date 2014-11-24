@@ -177,13 +177,14 @@ public class InputActivity extends Activity implements OnTouchListener {
         //Process touches
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: //Touch down
+
                 counter++;
                 sDown = "Down: " + x + ", " + y;
                 sMove = ""; sUp = "";
             case MotionEvent.ACTION_MOVE: //Touch moves
                 sMove = "Move: " + x + ", " + y;
                 if(mark){
-                    outstring += (int)x + ", " + (int)y + ";\n";
+                    outstring += (int)x + ", " + (int)y + ", " + event.getPressure() + ";\n";
 
                     //Disable saving coordinates for next 1 ms
                     mark = false;
@@ -195,11 +196,11 @@ public class InputActivity extends Activity implements OnTouchListener {
                         }
                     }.start();
                 }
-                tv.setText(sDown + "\n" + sMove + "\n" + sUp);
+                tv.setText(sDown + "\n" + sMove + "\n" + sUp + "Pressure: " + event.getPressure());
                 break;
             case MotionEvent.ACTION_UP: //Touch ended
                 //Getting touchesEndedPref
-                outstring += "-1, -1;\n";
+                outstring += "-1, -1, -1;\n";
                 String touchesEndedTimer = prefs.getString("touchesEndedPref", "0.7");
                 int timer = Integer.valueOf(touchesEndedTimer);
                 new CountDownTimer(timer, timer) {
@@ -209,7 +210,7 @@ public class InputActivity extends Activity implements OnTouchListener {
                         counter--;
                         if(counter <= 0){
                             counter = 0;
-                            outstring += "-2, -2;\n";
+                            outstring += "-2, -2, -2;\n";
                             Log.d("myLog", outstring);
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Date date = new Date();
